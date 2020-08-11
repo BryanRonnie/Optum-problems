@@ -1,0 +1,71 @@
+#include <bits/stdc++.h> 
+using namespace std; 
+  
+class Node  
+{  
+    public: 
+    int data;  
+    Node* nloc;  
+}*rloc= NULL;  
+  
+typedef struct Node node;  
+
+/* Reverses the linked list in groups 
+of size k and returns the pointer 
+to the new root location node. */
+node *reverse (node *rloc, int k)  
+{  
+     node *prev = NULL,*cur = rloc, *nxt = NULL;
+     int count =0;
+     while(cur && count<k)
+     {
+       nxt = cur->nloc;
+       cur->nloc = prev;
+       prev = cur;
+       cur = nxt;
+       count++;
+     } 
+     if (nxt)  
+    rloc->nloc = reverse(nxt, k);
+     return prev;
+
+}  
+  
+void insert(int data)  
+{  
+    node* t = new node(); 
+    t->data = data;  
+    t->nloc = rloc;      
+    rloc = t;  
+}  
+  
+void printList(node *node)  
+{  
+    while (node != NULL)  
+    {  
+        cout<<node->data<<" ";  
+        node = node->nloc;  
+    }  
+}  
+  
+int main()  
+{    
+    insert(9);  
+    insert(8);  
+    insert(7);  
+    insert(6);  
+    insert(5);  
+    insert(4);  
+    insert(3);  
+    insert(2);  
+    insert(1);      
+  
+    cout<<"Given linked list \n";  
+    printList(rloc);  
+    rloc = reverse(rloc, 3);  
+  
+    cout<<"\nReversed Linked list \n";  
+    printList(rloc);  
+  
+    return(0);  
+} 
